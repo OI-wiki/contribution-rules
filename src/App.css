@@ -1,38 +1,120 @@
-.App {
-  text-align: center;
+.rule {
+  padding: 10px;
+  margin: 5px;
+  border: 1px black solid;
+  border-radius: 3px;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.agree::before {
+  content: "Agree: ";
+  display: inline;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.disagree::before {
+  content: "Disgree: ";
+  display: inline;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.dontmind::before {
+  content: "Don't Mind: ";
+  display: inline;
 }
 
-.App-link {
-  color: #61dafb;
+.agree-btn::before {
+  content: "Agree";
+  display: inline;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.disagree-btn::before {
+  content: "Disgree";
+  display: inline;
+}
+
+.dontmind-btn::before {
+  content: "Don't Mind";
+  display: inline;
+}
+
+.vote .vote-btn {
+  display: inline-block;
+  padding: 5px 20px;
+  transition: background-color .25s ease-in-out;
+}
+
+.vote .vote-btn:hover {
+  background-color: #e8e8e8;
+  cursor: pointer;
+}
+
+.vote span {
+  margin: 0 5px;
+}
+
+.meta {
+  margin-top: 5px;
+}
+
+.vote {
+  float: left;
+}
+
+.author {
+  float: right;
+}
+
+.meta::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content-input {
+  width: calc(100% - 5px);
+  min-height: 4em;
+}
+
+.edit-btn {
+  width: 18px;
+  height: 18px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 100%;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  background-color: #e8e8e8;
+  transition: background-color .25s ease-in-out;
+}
+
+.edit-btn:hover {
+  background-color: grey;
+}
+
+.navbar ul li {
+  float: right;
+  padding: 10px;
+  transition: background-color .25s ease-in-out;
+}
+.navbar ul li:hover {
+  background-color: #e8e8e8;
+  cursor: pointer;
+}
+
+.navbar ul::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.navbar {
+  border-bottom: 1px solid grey;
+  margin-bottom: 20px;
+  position: relative;
 }

@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# OI Wiki 编辑规范讨论站
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+这大概是个 readme
 
-## Available Scripts
+## 数据存储接口
 
-In the project directory, you can run:
+### 规则
 
-### `yarn start`
+```typescript
+interface Rule {
+  content: string
+  tag: Array<string>
+  agree: Array<string> // 同意的人的邮箱
+  disagree: Array<string> // 邮箱
+  dontmind: Array<string> // 邮箱
+  status: 'enable' | 'disable' | 'proposal'
+  email: string // 创建者的邮箱
+  createAt: Date
+  updateAt: Date
+}
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+举个例子：
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```json
+{
+  "content": "例题的代码应该使用 note 折叠。",
+  "tag": ["problem", "markdown-extra-syntax", "code-block"],
+  "agree": ["sshwy@oi-wiki.org", "test@example.com"],
+  "disagree": [],
+  "dontmind": [],
+  "status": "enable",
+  "email": "jy.cat@qq.com"	,
+  "createAt": "2021-03-11T09:42:59.012Z",
+  "updatedAt": "2021-03-11T09:42:59.012Z"
+}
+```
 
-### `yarn test`
+### 规则列表
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```typescript
+interface RuleList {
+  title: string
+  description: string
+  rules: Array<RuleList> | Array<string> // Array<string> 指存储 Rule 的 objectId
+}
+```
 
-### `yarn build`
+这个可以用于自动生成 markdown 文档。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 用户
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+用邮箱区分用户，登录时用邮箱验证码。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```typescript
+interface User {
+  email: string
+  level: number // 权限
+}
+```
 
-### `yarn eject`
+## 功能
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 规则的増删改查
+- 用户交互（赞成/不赞成）
+- 自动生成文档
+- 管理员页面
+  - 设置规则的状态
+  - 查看（修改）投票情况
