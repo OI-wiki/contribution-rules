@@ -12,6 +12,11 @@ export function RuleCard (props) {
     setStatus('default')
   }
 
+  function onDelete () {
+    props.rule.delete(props.afterDelete)
+    setStatus('default')
+  }
+
   if (props.votable && status === 'voting') {
     return (
       <div className="rule">
@@ -56,7 +61,10 @@ export function RuleCard (props) {
             defaultValue={data.content}
             ref={contentRef}
           />
-          <input type="button" value="保存" onClick={onSave} />
+          <div className="btn-group">
+            <input type="button" value="保存" onClick={onSave} />
+            <input type="button" value="删除" onClick={onDelete} />
+          </div>
         </div>
         <hr />
         <div className="meta">
@@ -76,14 +84,14 @@ export function RuleCard (props) {
       <div className="content">{data.content}</div>
       <hr />
       <div className="meta">
-        <div className="vote">
-          <span className="agree">{data.agree.length}</span>
-          <span className="disagree">{data.disagree.length}</span>
-          <span className="dontmind">{data.dontmind.length}</span>
-        </div>
         <div className="author"><em>Created by </em>{data.email}</div>
+        <div className="tags">{[...data.tag, data.status].map(t => <span className="tag" key={t}>{t}</span>)}</div>
       </div>
-      <div className="tags">{data.tag.map(t => <span className="tag" key={t}>{t}</span>)}</div>
+      <div className="vote">
+        <span className="agree">{data.agree.length}</span>
+        <span className="disagree">{data.disagree.length}</span>
+        <span className="dontmind">{data.dontmind.length}</span>
+      </div>
       {props.editable && <div className="edit-btn" title="编辑" onClick={() => setStatus('editing')}></div>}
     </div>
   )

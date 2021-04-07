@@ -43,6 +43,11 @@ class Rule {
     this.storage.set(flag, this.storage.get(flag).concat(email))
     this.storage.save()
   }
+  delete (afterDelete) {
+    this.storage.destroy().then(() => {
+      if(afterDelete) afterDelete();
+    })
+  }
   setTag (tags) {
     this.storage.set('tag', tags)
     this.storage.save()

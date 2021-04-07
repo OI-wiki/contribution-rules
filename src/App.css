@@ -52,11 +52,7 @@
 }
 
 .meta {
-  margin-top: 5px;
-}
-
-.vote {
-  float: left;
+  margin: 5px 0;
 }
 
 .author {
@@ -117,4 +113,21 @@
   border-bottom: 1px solid grey;
   margin-bottom: 20px;
   position: relative;
+}
+
+.author {
+  color: #464646;
+}
+
+span.tag {
+  background: #e2e2e2c4;
+  margin: 2px;
+  padding: 3px 3px;
+  display: inline-block;
+  border-radius: 3px;
+  color: #464646;
+}
+
+.btn-group input {
+  margin-right: 4px;
 }

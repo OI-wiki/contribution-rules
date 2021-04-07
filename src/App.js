@@ -51,7 +51,14 @@ function App () {
           })
         }} />
         <div className="rulelist">
-          {rules.map((rule, idx) => <RuleCard key={idx} rule={rule} editable />)}
+          {rules.map((rule, idx) => <RuleCard 
+            key={idx} rule={rule} editable
+            afterDelete={() => {
+              Rule.getAll().then(data => {
+                setRules(data)
+              })
+            }}
+          />)}
         </div>
       </div>}
       {route === 'vote' && <div className="main">
