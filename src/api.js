@@ -6,6 +6,9 @@ AV.init({
   serverURL: 'https://n6prpu7h.lc-cn-n1-shared.com'
 })
 
+const RuleObject = AV.Object.extend('Rule')
+const RuleListObject = AV.Object.extend('RuleList')
+
 class Rule {
   constructor(rule) {
     this.storage = rule
@@ -15,7 +18,6 @@ class Rule {
     email,
     tag,
   }, afterCreate) {
-    const RuleObject = AV.Object.extend('Rule')
     const rule = new RuleObject()
     console.log(content, email, tag)
     rule.set('content', content)
@@ -61,7 +63,34 @@ class Rule {
   }
 }
 
+class RuleList {
+  constructor(list) {
+    this.storage = list
+  }
+  static create ({
+    title,
+  }, afterCreate) {
+    const list = new RuleListObject()
+    list.set('title', title)
+    list.set('description', '')
+    list.set('rules', [])
+    list.save().then(data => {
+      if(afterCreate) afterCreate(data)
+    })
+    return new RuleList(list)
+  }
+  static getAll () {
+    const query = new AV.Query('RuleList')
+    query.descending('createdAt');
+    return query.find().then(lists => lists.map(list => new RuleList(list)))
+  }
+  toJSON () {
+    return this.storage.toJSON()
+  }
+}
+
 
 export {
-  Rule
+  Rule,
+  RuleList,
 }

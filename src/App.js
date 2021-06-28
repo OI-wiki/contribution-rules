@@ -3,9 +3,11 @@ import { Rule } from './api';
 import './App.css';
 import Navbar from './components/Navbar';
 import { RuleCard, RuleCreator } from './components/Rule'
+import HomePage from './components/HomePage'
+import DocsPage from './components/DocsPage'
 
 function App () {
-  document.title = 'Demo'
+  document.title = 'Voting Demo'
 
   const [rules, setRules] = useState([])
   const [route, setRoute] = useState('list')
@@ -66,9 +68,8 @@ function App () {
           {randomSelect(rules, 10).map((rule, idx) => <RuleCard key={idx} rule={rule} votable voting />)}
         </div>
       </div>}
-      {route === 'home' && <div className="main">
-        <h1>Demo</h1>
-      </div>}
+      {route === 'home' && <HomePage />}
+      {route === 'docs' && <DocsPage />}
     </div>
   );
 }
